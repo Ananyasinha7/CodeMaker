@@ -1,0 +1,144 @@
+/*
+    Tic Tac Toe UI Styling
+    Implements responsive design, color variables, and interactive cell styles.
+*/
+
+:root {
+    --color-x: #ff5722;      /* Orange for X */
+    --color-o: #2196f3;      /* Blue for O */
+    --color-bg: #f0f4f8;    /* Light background */
+    --color-board: #ffffff; /* Board background */
+    --color-hover: #e0e0e0; /* Hover effect */
+    --color-win: #c8e6c9;   /* Light green for winning cells */
+}
+
+/* Global body styling */
+body {
+    margin: 0;
+    padding: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Title */
+#title {
+    font-size: 2.5rem;
+    margin: 0.5rem 0 1rem 0;
+    text-align: center;
+}
+
+/* Scoreboard */
+#scoreboard {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+#status {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    min-height: 1.5rem; /* reserve space */
+    text-align: center;
+}
+
+/* Board grid */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+/* Individual cell */
+.cell {
+    width: 100%;
+    padding-top: 100%; /* maintain square */
+    position: relative;
+    font-size: 2.5rem;
+    background-color: var(--color-board);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Center the X/O using pseudo-element */
+.cell::after {
+    content: attr(data-mark);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-x); /* default, will be overridden via class */
+    pointer-events: none;
+}
+
+/* Color overrides based on mark */
+.cell.x::after { color: var(--color-x); }
+.cell.o::after { color: var(--color-o); }
+
+/* Hover effect */
+.cell:hover:not(.disabled) {
+    background-color: var(--color-hover);
+}
+
+/* Disabled cells (already played) */
+.cell.disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Winning cells */
+.cell.win {
+    background-color: var(--color-win);
+}
+
+/* Reset button */
+.reset {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background-color: var(--color-board);
+    border: 2px solid #888;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.reset:hover {
+    background-color: var(--color-hover);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    #title {
+        font-size: 2rem;
+    }
+    #scoreboard {
+        font-size: 1rem;
+        gap: 1rem;
+    }
+    .board {
+        max-width: 300px;
+    }
+    .cell {
+        font-size: 2rem;
+    }
+    .reset {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
